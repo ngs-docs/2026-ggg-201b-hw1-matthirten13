@@ -1,0 +1,77 @@
+GGG201B HW1 Matthew Kramer
+1) Which variants in which samples:
+Sample: SRR2584403
+ecoli_1329520_T/G
+ecoli_4141016_C/A
+
+
+Sample: SRR2584404
+ecoli_1329520_T/G
+ecoli_238917_G/T
+ecoli_4141016_C/A
+ecoli_806310_ATT/AT
+
+
+Sample: SRR2584405
+ecoli_1176010_T/G
+ecoli_1503866_A/C
+ecoli_15382_C/T
+ecoli_154497_T/G
+ecoli_1680445_A/T
+ecoli_1680446_A/T
+ecoli_1733754_A/T
+ecoli_1996109_A/T
+ecoli_2000253_A/T
+ecoli_2020126_C/G
+ecoli_2103919_ACAGCCAGCCAGCCAGCCAGCCAGCCAGCCAG/ACAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAG
+ecoli_2296329_A/C
+ecoli_2330469_A/T
+ecoli_2330472_A/T
+ecoli_2416966_C/T
+ecoli_254101_T/G
+ecoli_2671373_T/G
+ecoli_2671376_C/A
+ecoli_2682710_G/C
+ecoli_2682764_C/T
+ecoli_3090762_C/A
+ecoli_3090763_T/G
+ecoli_3268057_T/C
+ecoli_3351282_C/T
+ecoli_3509753_T/C
+ecoli_3568506_T/G
+ecoli_3762120_C/A
+ecoli_4029556_G/T
+ecoli_4029559_A/C
+ecoli_4192865_G/A
+ecoli_4497049_T/G
+ecoli_4503866_T/C
+ecoli_4504217_G/A
+ecoli_4504253_G/A
+ecoli_4505396_T/C
+ecoli_4505407_G/A
+ecoli_4506070_A/T
+ecoli_4593578_C/T
+ecoli_649522_C/T
+ecoli_692265_C/T
+ecoli_692268_A/G
+ecoli_708118_T/C
+
+
+Sample: SRR2584857
+ecoli_3931002_A/C
+ecoli_4141441_C/T
+ecoli_4202391_T/G
+ecoli_4530779_CACCCTAACCCT/CACCCTAACCCTAACCCT
+ecoli_920514_T/C
+
+
+2) Which variants are shared between two or more samples?
+ecoli_4141016_C/A
+ecoli_1329520_T/G
+
+3) Are there any variants that stand out in terms of their likely biological impact?
+ecoli_1996109_A/T is only 7bp upstream of a gene, and upstream of 2 farther genes
+ecoli_2000253_A/T	ecoli:2000253 is also only 7bp upstream of a gene, and upstream of 1 farther gene + downstream of 1 farther gene
+ecoli_3351282_C/T is relatively close downstream of 7 genes
+ecoli_4192865_G/A is downstream of 4 genes
+All of these are found in SRR2584405
