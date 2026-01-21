@@ -1,4 +1,4 @@
-SAMPLES = ["SRR2584857_1"]
+SAMPLES = ["SRR2584857_1", "SRR2584403_1", "SRR2584404_1", "SRR2584405_1"]
 GENOME = ["ecoli-rel606"]
 
 rule make_vcf:
@@ -7,6 +7,10 @@ rule make_vcf:
                sample=SAMPLES, genome=GENOME),
         expand("outputs/{sample}.x.{genome}.vep.txt",
               sample=SAMPLES, genome=GENOME),
+        expand("outputs/{sample}.x.{genome}.vep.only_variants.txt",
+              sample=SAMPLES, genome=GENOME),
+        expand("outputs/{genome}.shared_variants.txt",
+              genome=GENOME)
   
 rule uncompress_genome:
     input: "{genome}.fa.gz"
@@ -67,9 +71,9 @@ rule call_variants:
 
 rule tabix:
     input:
-        gff="{filename}.gff.gz",
+        gff="{genome}.sorted.gff.gz",
     output:
-        tabix_idx='{filename}.gff.gz.tbi',
+        tabix_idx='{genome}.sorted.gff.gz.tbi',
     shell: """
         tabix {input}
     """
@@ -79,7 +83,7 @@ rule predict_effects:
         fasta="{genome}.fa.gz",
         gff="{genome}.sorted.gff.gz",
         vcf="outputs/{reads}.x.{genome}.vcf",
-        tabix_idx='ecoli-rel606.sorted.gff.gz.tbi',
+        tabix_idx='{genome}.sorted.gff.gz.tbi',
     output:
         txt="outputs/{reads}.x.{genome}.vep.txt",
         html="outputs/{reads}.x.{genome}.vep.txt_summary.html",
@@ -87,4 +91,23 @@ rule predict_effects:
     conda: "vep"
     shell: """
        vep --fasta {input.fasta} --gff {input.gff} -i {input.vcf} -o {output.txt}
+    """
+
+rule clean_variant_lists:
+    input:
+        vep="outputs/{reads}.x.{genome}.vep.txt"
+    output:
+        clean_vep="outputs/{reads}.x.{genome}.vep.only_variants.txt"
+    shell: """
+       awk '{{print $1}}' {input.vep} | sed '1,31d' | sort -u > {output.clean_vep}
+    """
+    
+rule shared_variants:
+    input:
+        expand("outputs/{sample}.x.{genome}.vep.only_variants.txt",
+               sample=SAMPLES, genome=GENOME)
+    output:
+        shared_vep="outputs/{genome}.shared_variants.txt"
+    shell: """
+       grep -h -v '^#' {input} | sort | uniq -c | awk '$1 > 1' | sort -nr > {output.shared_vep}
     """
