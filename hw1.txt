@@ -1,3 +1,4 @@
+GGG201B HW1 Matthew Kramer
 1) Which variants in which samples:
 Sample: SRR2584403
 ecoli_1329520_T/G
